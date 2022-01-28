@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tp_flutter/page/cities_list_page.dart';
 import 'package:tp_flutter/page/home_page.dart';
+import 'package:tp_flutter/page/housing_detail_page.dart';
 import 'package:tp_flutter/page/housings_list_page.dart';
 import 'package:tp_flutter/routes.dart';
 
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
                 case ROUTE_HOUSINGS_LIST:
                   return HousingsListPage((settings.arguments as List)[0]);
                 case ROUTE_HOUSING_DETAIL:
-                  return CitiesListPage();
+                  return HousingDetailPage((settings.arguments as List)[0]);
                 default:
                   return const Center(child: Text("404 : Page Not Found"));
               }

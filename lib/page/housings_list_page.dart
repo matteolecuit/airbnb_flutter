@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:tp_flutter/model/housing.dart';
+import 'package:tp_flutter/routes.dart';
 
 class HousingsListPage extends StatefulWidget {
   final String cityId;
@@ -55,30 +56,29 @@ class _HousingsListPageState extends State<HousingsListPage> {
                 itemCount: listHousings.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    subtitle: Row(
+                    onTap: () => _navigateToHousingDetails(listHousings[index]),
+                    subtitle: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 140.0,
-                                child: Image.network(
+                        Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 200.0,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: NetworkImage(
                                     "https://flutter-learning.mooo.com" +
                                         listHousings[index].illustrations.url),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 16.0),
-                                child: Column(
-                                  children: [
-                                    Text(listHousings[index].title),
-                                    Text(listHousings[index].price.toString())
-                                  ],
-                                ),
-                              )
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16.0),
+                          child: Column(
+                            children: [
+                              Text(listHousings[index].title),
+                              Text(listHousings[index].price.toString())
                             ],
                           ),
-                        ),
+                        )
                       ],
                     ),
                   );
@@ -86,6 +86,11 @@ class _HousingsListPageState extends State<HousingsListPage> {
           } else
             return Center(child: CircularProgressIndicator());
         });
+  }
+
+  @override
+  void _navigateToHousingDetails(Housing housing) {
+    Navigator.of(context).pushNamed(ROUTE_HOUSING_DETAIL, arguments: [housing]);
   }
 
   Future<void> _fetchHousings(String cityId) async {
