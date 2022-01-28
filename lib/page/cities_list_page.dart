@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:tp_flutter/model/city.dart';
+import 'package:tp_flutter/routes.dart';
 
 class CitiesListPage extends StatefulWidget {
   const CitiesListPage({Key? key}) : super(key: key);
@@ -46,8 +47,8 @@ class _CitiesListPageState extends State<CitiesListPage> {
                 controller: _scrollControlList,
                 itemCount: listCities.length,
                 itemBuilder: (context, index) {
-                  print(listCities[index].pic.url);
                   return ListTile(
+                    onTap: () => _navigateToHousingsList(listCities[index].id),
                     subtitle: Row(
                       children: [
                         SizedBox(
@@ -70,6 +71,11 @@ class _CitiesListPageState extends State<CitiesListPage> {
   }
 
   @override
+  void _navigateToHousingsList(String cityId) {
+    Navigator.of(context).pushNamed(ROUTE_HOUSINGS_LIST, arguments: [cityId]);
+  }
+
+  @override
   void initState() {
     _streamControllerCities = StreamController<List<City>>();
     _streamCities = _streamControllerCities.stream;
@@ -77,12 +83,9 @@ class _CitiesListPageState extends State<CitiesListPage> {
   }
 
   Future<void> _fetchCities() async {
-    print('fetching');
     http.Response responseMessages =
         await http.get(Uri.parse("https://flutter-learning.mooo.com/villes"));
 
-    //TODO check 200
-    print(responseMessages.statusCode);
     if (responseMessages.statusCode == 200) {
       List listCitiesJSON = jsonDecode(responseMessages.body) as List;
       List<City> listCities =
