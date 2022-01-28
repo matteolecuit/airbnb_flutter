@@ -57,16 +57,28 @@ class _HousingsListPageState extends State<HousingsListPage> {
                   return ListTile(
                     subtitle: Row(
                       children: [
-                        SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: Image.network(
-                              "https://flutter-learning.mooo.com" +
-                                  listHousings[index].illustrations.url),
-                        ),
                         Padding(
-                            padding: const EdgeInsets.only(left: 16),
-                            child: Text(listHousings[index].title))
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 140.0,
+                                child: Image.network(
+                                    "https://flutter-learning.mooo.com" +
+                                        listHousings[index].illustrations.url),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 16.0),
+                                child: Column(
+                                  children: [
+                                    Text(listHousings[index].title),
+                                    Text(listHousings[index].price.toString())
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   );

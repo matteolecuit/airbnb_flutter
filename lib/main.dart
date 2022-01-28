@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tp_flutter/page/cities_list_page.dart';
 import 'package:tp_flutter/page/home_page.dart';
-import 'package:tp_flutter/page/housing_list_page.dart';
+import 'package:tp_flutter/page/housings_list_page.dart';
 import 'package:tp_flutter/routes.dart';
 
 void main() {
